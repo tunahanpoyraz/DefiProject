@@ -327,7 +327,7 @@ def quicklistSwap():
         pair = list()
         data_values = list()
         def looper():
-            WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-gPEVay.gLawMS")))
+            WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-gPEVay.gLawMS")))
             name = driver.find_elements_by_css_selector(".sc-gPEVay.gLawMS")
             values = driver.find_elements_by_css_selector(".sc-VigVT.dNgKCa div:nth-child(1)")
             for i in name:
