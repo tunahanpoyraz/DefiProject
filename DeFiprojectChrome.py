@@ -78,6 +78,7 @@ def burgerswaplistSwap():
         url="https://info.burgerswap.org/pairs"
         driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         driver.get(url)
+        driver.maximize_window()
         try:    
             looper()
             driver.find_element_by_css_selector(".sc-Rmtcm.eeIIib").click()
@@ -126,6 +127,7 @@ def movlistSwap():
         url="https://sup.finance/dashboard"
         driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         driver.get(url)
+        driver.maximize_window()
         try:
             looper()
             l=2
@@ -172,6 +174,7 @@ def swipelistSwap():
         driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.swipe.org/"
         driver.get(url)
+        driver.maximize_window()
 
         try:
             looper()
@@ -218,6 +221,7 @@ def sashimilistSwap():
         driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.sashimi.cool/pairs"
         driver.get(url)
+        driver.maximize_window()
         try:
             looper()
             l=0
@@ -263,6 +267,7 @@ def wanlistSwap():
         driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.wanswap.finance/pairs"
         driver.get(url)
+        driver.maximize_window()
         try:
             looper()
             l=0
@@ -333,6 +338,7 @@ def quicklistSwap():
         driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.quickswap.exchange/pairs"
         driver.get(url)
+        driver.maximize_window()
         try:
             looper()
             l=0
@@ -378,6 +384,7 @@ def pangolinlistSwap():
         driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.pangolin.exchange/#/pairs"
         driver.get(url)
+        driver.maximize_window()
         try:
             looper()
             l=0
@@ -423,6 +430,7 @@ def pancakelistSwap():
         driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://pancakeswap.info/pairs"
         driver.get(url)
+        driver.maximize_window()
         try:  
             looper()
             # driver.find_element_by_css_selector(".sc-gipzik.kLOwjF").click()
@@ -461,6 +469,7 @@ def mdexlistSwap():
         driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://bsc-info.mdex.com/#/pairs"
         driver.get(url)
+        driver.maximize_window()
         def looper():
                     WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-gPEVay.gLawMS")))
                     time.sleep(2)
@@ -518,6 +527,7 @@ def julistSwap():
         driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.julswap.com/home"
         driver.get(url)
+        driver.maximize_window()
         try:
             looper()
             driver.find_element_by_css_selector(".sc-imABML.fKZlSM").click()
@@ -570,6 +580,7 @@ def bakerylistSwap():
         driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.bakeryswap.org/#/home"
         driver.get(url)
+        driver.maximize_window()
         try:
             looper()
             j=0
@@ -620,6 +631,7 @@ def linklistSwap():
         driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.linkswap.app/pairs"
         driver.get(url)
+        driver.maximize_window()
         try:
             looper()
             driver.find_element_by_css_selector(".sc-gipzik.fPxmcZ").click()
@@ -759,6 +771,7 @@ def apeswaplistSwap():
         driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.apeswap.finance/pairs"
         driver.get(url)
+        driver.maximize_window()
         try:  
             looper()
             driver.find_element_by_css_selector(".sc-gipzik.Lgock").click()
