@@ -76,7 +76,7 @@ def burgerswaplistSwap():
                     data_values.append(i.text)
         exchange= "burgerswap"
         url="https://info.burgerswap.org/pairs"
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         driver.get(url)
         try:    
             looper()
@@ -125,7 +125,7 @@ def movlistSwap():
                 data_values.append(i.text)
         exchange= "mov"
         url="https://sup.finance/dashboard"
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         driver.get(url)
         try:
             looper()
@@ -171,7 +171,7 @@ def swipelistSwap():
             for i in values:
                 data_values.append(i.text)
         exchange= "swipeswap"
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.swipe.org/"
         driver.get(url)
 
@@ -218,7 +218,7 @@ def sashimilistSwap():
             for i in values:
                 data_values.append(i.text)
         exchange= "sashimiswap"
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.sashimi.cool/pairs"
         driver.get(url)
         try:
@@ -264,7 +264,7 @@ def wanlistSwap():
             for i in values:
                 data_values.append(i.text)
         exchange= "wanswap"
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.wanswap.finance/pairs"
         driver.get(url)
         try:
@@ -335,7 +335,7 @@ def quicklistSwap():
             for i in values:
                 data_values.append(i.text)
         exchange= "quickswap"
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.quickswap.exchange/pairs"
         driver.get(url)
         try:
@@ -382,7 +382,7 @@ def pangolinlistSwap():
                 data_values.append(i.text)
         time.sleep(2)
         exchange= "pangolin"
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.pangolin.exchange/#/pairs"
         driver.get(url)
         try:
@@ -428,7 +428,7 @@ def pancakelistSwap():
                 for i in values:
                     data_values.append(i.text)
         exchange= "pancakeswap"
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://pancakeswap.info/pairs"
         driver.get(url)
         try:  
@@ -467,7 +467,7 @@ def mdexlistSwap():
         pair = list()
         data_values = list()
         exchange= "mdex"
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://bsc-info.mdex.com/#/pairs"
         driver.get(url)
         def looper():
@@ -525,7 +525,7 @@ def julistSwap():
             for i in values:
                 data_values.append(i.text)
         exchange= "julswap"
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.julswap.com/home"
         driver.get(url)
         try:
@@ -578,7 +578,7 @@ def bakerylistSwap():
             for i in values:
                 data_values.append(i.text)
         exchange= "bakeryswap"
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.bakeryswap.org/#/home"
         driver.get(url)
         try:
@@ -629,7 +629,7 @@ def linklistSwap():
             for i in values:
                 data_values.append(i.text)
         exchange= "linkswap"
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.linkswap.app/pairs"
         driver.get(url)
         try:
@@ -769,7 +769,7 @@ def apeswaplistSwap():
                 for i in values:
                     data_values.append(i.text)
         exchange= "apeswap"
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.apeswap.finance/pairs"
         driver.get(url)
         try:  
