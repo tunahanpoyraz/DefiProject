@@ -45,7 +45,7 @@ def DeFi():
     sashimilistSwap()
     swipelistSwap()
     pangolinlistSwap()
-    quicklistSwap()
+    #quicklistSwap()
     movlistSwap()
     apeswaplistSwap()
     j=0
@@ -67,7 +67,7 @@ def burgerswaplistSwap():
         data_values = list()
         def looper():
                 WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-jlyJG.hZRHdD")))
-                time.sleep(1)
+                time.sleep(2)
                 name = driver.find_elements_by_css_selector(".sc-jlyJG.hZRHdD")
                 values = driver.find_elements_by_css_selector(".sc-fMiknA.cObOEH.css-4cffwv")
                 for i in name:
@@ -103,7 +103,6 @@ def burgerswaplistSwap():
             driver.close()
             errorcounter+=1
             if(errorcounter<5):
-                print(errorcounter)
                 burgerswaplistSwap()
             errorcounter=0
     except:
@@ -116,7 +115,7 @@ def movlistSwap():
         def looper():
             WebDriverWait(driver, 60).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, ".ant-table-row.ant-table-row-level-0 td a")))
-            time.sleep(1)
+            time.sleep(2)
             name = driver.find_elements_by_css_selector(".ant-table-row.ant-table-row-level-0 td a")
             values = driver.find_elements_by_css_selector(".ant-table-cell.cell span")
             for i in name:
@@ -150,7 +149,6 @@ def movlistSwap():
             driver.close()
             errorcounter+=1
             if(errorcounter<5):
-                print(errorcounter)
                 movlistSwap() 
             errorcounter=0
     except:
@@ -163,7 +161,7 @@ def swipelistSwap():
         def looper():
             WebDriverWait(driver, 60).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, ".MuiTypography-root.MuiLink-root.MuiLink-underlineHover.MuiTypography-body2.MuiTypography-colorPrimary.MuiTypography-noWrap")))
-            time.sleep(1)
+            time.sleep(2)
             name = driver.find_elements_by_css_selector(".MuiTypography-root.MuiLink-root.MuiLink-underlineHover.MuiTypography-body2.MuiTypography-colorPrimary.MuiTypography-noWrap")
             values = driver.find_elements_by_css_selector(".MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignRight")
             for i in name:
@@ -198,7 +196,6 @@ def swipelistSwap():
             driver.close()
             errorcounter+=1
             if(errorcounter<5):
-                print(errorcounter)
                 swipelistSwap()
             errorcounter=0      
     except:
@@ -210,7 +207,7 @@ def sashimilistSwap():
         data_values = list()
         def looper():
             WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-gPEVay.bYsHcw")))
-            time.sleep(1)
+            time.sleep(2)
             name = driver.find_elements_by_css_selector(".sc-gPEVay.bYsHcw")
             values = driver.find_elements_by_css_selector(".sc-hzDkRC.hvyZgB.css-4cffwv")
             for i in name:
@@ -244,7 +241,6 @@ def sashimilistSwap():
             driver.close()
             errorcounter+=1
             if(errorcounter<5):
-                print(errorcounter)
                 sashimilistSwap()
             errorcounter=0
     except:
@@ -256,7 +252,7 @@ def wanlistSwap():
         data_values = list()
         def looper():
             WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-jlyJG.hZRHdD")))
-            time.sleep(1)
+            time.sleep(2)
             name = driver.find_elements_by_css_selector(".sc-jlyJG.hZRHdD")
             values = driver.find_elements_by_css_selector(".sc-fBuWsC.KrSIM.css-4cffwv div div:nth-child(1)")
             for i in name:
@@ -298,7 +294,6 @@ def wanlistSwap():
             driver.close()
             errorcounter+=1
             if(errorcounter<5):
-                print(errorcounter)
                 wanlistSwap() 
             errorcounter=0 
     except:
@@ -327,7 +322,7 @@ def quicklistSwap():
         pair = list()
         data_values = list()
         def looper():
-            WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-gPEVay.gLawMS")))
+            WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-gPEVay.gLawMS")))
             name = driver.find_elements_by_css_selector(".sc-gPEVay.gLawMS")
             values = driver.find_elements_by_css_selector(".sc-VigVT.dNgKCa div:nth-child(1)")
             for i in name:
@@ -361,7 +356,6 @@ def quicklistSwap():
             driver.close()
             errorcounter+=1
             if(errorcounter<5):
-                print(errorcounter)
                 quicklistSwap() 
             errorcounter=0
     except:
@@ -373,7 +367,7 @@ def pangolinlistSwap():
         data_values = list()
         def looper():
             WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-iRbamj.bowFDd")))
-            time.sleep(1)
+            time.sleep(2)
             name = driver.find_elements_by_css_selector(".sc-iRbamj.bowFDd")
             values = driver.find_elements_by_css_selector(".sc-jhAzac.ewmrIK.css-4cffwv")
             for i in name:
@@ -408,7 +402,6 @@ def pangolinlistSwap():
             driver.close()
             errorcounter+=1
             if(errorcounter<5):
-                print(errorcounter)
                 pangolinlistSwap()
             errorcounter=0
     except:
@@ -420,7 +413,7 @@ def pancakelistSwap():
         data_values = list()
         def looper():
                 WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-iRbamj.bowFDd")))
-                time.sleep(1)
+                time.sleep(2)
                 name = driver.find_elements_by_css_selector(".sc-iRbamj.bowFDd")
                 values = driver.find_elements_by_css_selector(".sc-jhAzac.iggPaB.css-4cffwv")
                 for i in name:
@@ -456,7 +449,6 @@ def pancakelistSwap():
             driver.close()
             errorcounter+=1
             if(errorcounter<5):
-                print(errorcounter)
                 pancakelistSwap() 
             errorcounter=0
     except:
@@ -472,7 +464,7 @@ def mdexlistSwap():
         driver.get(url)
         def looper():
                     WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-gPEVay.gLawMS")))
-                    time.sleep(1)
+                    time.sleep(2)
                     name = driver.find_elements_by_css_selector(".sc-gPEVay.gLawMS")
                     values = driver.find_elements_by_css_selector(".sc-VigVT.dNgKCa div")
                     for i in name:
@@ -505,7 +497,6 @@ def mdexlistSwap():
             driver.close()
             errorcounter+=1
             if(errorcounter<5):
-                print(errorcounter)
                 mdexlistSwap()
             errorcounter=0
     except:
@@ -517,7 +508,7 @@ def julistSwap():
         data_values = list()
         def looper():
             WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-kcbnda.dcPXpm.css-1n3zwju a div")))
-            time.sleep(1)
+            time.sleep(2)
             name = driver.find_elements_by_css_selector(".sc-kcbnda.dcPXpm.css-1n3zwju a div")
             values = driver.find_elements_by_css_selector(".sc-kcbnda.dcPXpm.css-4cffwv")
             for i in name:
@@ -558,7 +549,6 @@ def julistSwap():
             driver.close()
             errorcounter+=1
             if(errorcounter<5):
-                print(errorcounter)
                 julistSwap()
             errorcounter=0
     except:
@@ -570,7 +560,7 @@ def bakerylistSwap():
         data_values = list()
         def looper():
             WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-Rmtcm.gfMZds div a div")))
-            time.sleep(1)
+            time.sleep(2)
             name = driver.find_elements_by_css_selector(".sc-Rmtcm.gfMZds div a div")
             values = driver.find_elements_by_css_selector(".sc-jhAzac.ewmrIK.css-4cffwv")
             for i in name:
@@ -609,7 +599,6 @@ def bakerylistSwap():
             driver.close()
             errorcounter+=1
             if(errorcounter<5):
-                print(errorcounter)
                 bakerylistSwap()
             errorcounter=0
     except:
@@ -621,7 +610,7 @@ def linklistSwap():
         data_values = list()
         def looper():
             WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-iRbamj.bowFDd")))
-            time.sleep(1)
+            time.sleep(2)
             name = driver.find_elements_by_css_selector(".sc-iRbamj.bowFDd")
             values = driver.find_elements_by_css_selector(".sc-jhAzac.cVBsLB.css-4cffwv")
             for i in name:
@@ -657,7 +646,6 @@ def linklistSwap():
             driver.close()
             errorcounter+=1
             if(errorcounter<5):
-                print(errorcounter)
                 linklistSwap()
             errorcounter=0
     except:
@@ -761,7 +749,7 @@ def apeswaplistSwap():
         data_values = list()
         def looper():
                 WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-iRbamj.bowFDd")))
-                time.sleep(1)
+                time.sleep(2)
                 name = driver.find_elements_by_css_selector(".sc-iRbamj.bowFDd")
                 values = driver.find_elements_by_css_selector(".sc-jhAzac.iggPaB.css-4cffwv")
                 for i in name:
@@ -797,7 +785,6 @@ def apeswaplistSwap():
             driver.close()
             errorcounter+=1
             if(errorcounter<5):
-                print(errorcounter)
                 apeswaplistSwap()
             errorcounter=0
     except:
