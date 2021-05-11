@@ -374,7 +374,6 @@ def pangolinlistSwap():
                 pair.append(i.text)
             for i in values:
                 data_values.append(i.text)
-        time.sleep(2)
         exchange= "pangolin"
         driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.pangolin.exchange/#/pairs"
