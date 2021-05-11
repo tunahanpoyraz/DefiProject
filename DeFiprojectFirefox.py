@@ -3,6 +3,9 @@ import json
 import time
 from selenium import webdriver
 from tabulate import tabulate
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 defiswap_list=list()
 
@@ -23,6 +26,8 @@ pangolin_list= list()
 mov_list= list()
 apeswap_list=list()
 burger_list=list()
+
+errorcounter=0
 def DeFi():
     
     print("PROJE ÇALIŞIYOR")
@@ -33,36 +38,36 @@ def DeFi():
     bakerylistSwap()
     mdexlistSwap()
     burgerswaplistSwap()
-    sushiswaplistSwap()                            
-    uniswaplistSwap()
-    #serumlistSwap()
+    sushiswaplistSwap()#ok                           
+    uniswaplistSwap()#ok
+    #serumlistSwap()#ok
     pancakelistSwap()
-    quicklistSwap()
     sashimilistSwap()
     swipelistSwap()
     pangolinlistSwap()
+    quicklistSwap()
     movlistSwap()
     apeswaplistSwap()
- 
     j=0
     while j<16:
                     datas = [swipeswap_list,burger_list,pangolin_list,wanswap_list,apeswap_list,mov_list,uniswap_list,sushiswap_list,sashimiswap_list,mdex_list,julswap_list,bakery_list,pancake_list,linkswap_list,quickswap_list,bancor_list]
                     for i in datas[j]:
                         if(float(i[5])!=0):
-                            defiswap_list.append([i[0],i[1],i[2],i[3],i[4],i[5]])
+                            defiswap_list.append([i[0],i[1],round(float(i[2]),1),round(float(i[3]),1),round(float(i[4]),1),round(float(i[5]),1)])
                     j +=1
                     data = sorted(defiswap_list, key=lambda x:float(x[5]), reverse=True)
-    print(tabulate(data))
-                #print(defiswap_list)
+    #print(tabulate(data))
+    print(data)
     print("PROJE BİTTİ")
     
-        
-def burgerswaplistSwap():#doğru çalışıyor
+def burgerswaplistSwap():
     try:
         print("burgerswap başladı")
         pair = list()
         data_values = list()
         def looper():
+                WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-jlyJG.hZRHdD")))
+                time.sleep(1)
                 name = driver.find_elements_by_css_selector(".sc-jlyJG.hZRHdD")
                 values = driver.find_elements_by_css_selector(".sc-fMiknA.cObOEH.css-4cffwv")
                 for i in name:
@@ -70,10 +75,9 @@ def burgerswaplistSwap():#doğru çalışıyor
                 for i in values:
                     data_values.append(i.text)
         exchange= "burgerswap"
-        driver = webdriver.Firefox()
         url="https://info.burgerswap.org/pairs"
+        driver = webdriver.Chrome()
         driver.get(url)
-        time.sleep(15)
         try:    
             looper()
             driver.find_element_by_css_selector(".sc-Rmtcm.eeIIib").click()
@@ -84,36 +88,45 @@ def burgerswaplistSwap():#doğru çalışıyor
             a=4
             p=0
             while (a<=len(data_values)):
-                        burger_list.append([exchange,pair[p],data_values[l].replace("$", ""),data_values[v].replace("$", ""),data_values[f].replace("$", ""),(data_values[a].replace("+", "")).replace("%","")])
+                        burger_list.append([exchange,pair[p],data_values[l].replace("$", "") if (data_values[l].replace("$", ""))[-3:-2] =="." else (data_values[l].replace("$", "")).replace(".",""),(data_values[v].replace("$", ""))[:-1] if (data_values[v].replace("$", ""))[-3:-2] =="." else (data_values[v].replace("$", "")).replace(".",""),(data_values[f].replace("$", ""))[:-1] if (data_values[f].replace("$", ""))[-3:-2] =="." else (data_values[f].replace("$", "")).replace(".",""),(data_values[a].replace("+", "")).replace("%","")])    
                         l+=5
                         v+=5
                         f+=5
                         a+=5
                         p+=1
             driver.close()
+            global errorcounter
+            errorcounter=0
             print("burgerswap bitti")
         except:
             print("burgerswap listesi oluşturulamadı")
+            driver.close()
+            errorcounter+=1
+            if(errorcounter<5):
+                print(errorcounter)
+                burgerswaplistSwap()
+            errorcounter=0
     except:
         print("burgerswap çalışmadı")
-def movlistSwap():#doğru çalışıyor
+def movlistSwap():
     try:
         print("mov başladı")
         pair = list()
         data_values = list()
         def looper():
+            WebDriverWait(driver, 60).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".ant-table-row.ant-table-row-level-0 td a")))
+            time.sleep(1)
             name = driver.find_elements_by_css_selector(".ant-table-row.ant-table-row-level-0 td a")
             values = driver.find_elements_by_css_selector(".ant-table-cell.cell span")
             for i in name:
                 pair.append(i.text)
             for i in values:
                 data_values.append(i.text)
-            time.sleep(2)
         exchange= "mov"
-        driver = webdriver.Firefox()
         url="https://sup.finance/dashboard"
+        driver = webdriver.Chrome()
         driver.get(url)
-        time.sleep(15)
         try:
             looper()
             l=2
@@ -122,24 +135,35 @@ def movlistSwap():#doğru çalışıyor
             a=5
             p=0
             while(a<=91):
-                mov_list.append([exchange,pair[p],data_values[l].replace("$", ""),data_values[v].replace("$", ""),data_values[f].replace("$", ""),(data_values[a].replace("+", "")).replace("%","")])    
+                mov_list.append([exchange,pair[p],(data_values[l].replace("$", "")).replace(",", ""),(data_values[v].replace("$", "")).replace(",", ""),(data_values[f].replace("$", "")).replace(",", ""),(data_values[a].replace("+", "")).replace("%","")])
                 l+=7
                 v+=7
-                f+=5
+                f+=7
                 a+=7
                 p+=1
             driver.close()
+            global errorcounter
+            errorcounter=0
             print("mov bitti")
         except:
             print("mov listesi oluşturulamadı")
+            driver.close()
+            errorcounter+=1
+            if(errorcounter<5):
+                print(errorcounter)
+                movlistSwap() 
+            errorcounter=0
     except:
         print("mov çalışmadı")
-def swipelistSwap():#doğru çalışıyor
+def swipelistSwap():
     try:
         print("swipeswap başladı")
         pair = list()
         data_values = list()
         def looper():
+            WebDriverWait(driver, 60).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".MuiTypography-root.MuiLink-root.MuiLink-underlineHover.MuiTypography-body2.MuiTypography-colorPrimary.MuiTypography-noWrap")))
+            time.sleep(1)
             name = driver.find_elements_by_css_selector(".MuiTypography-root.MuiLink-root.MuiLink-underlineHover.MuiTypography-body2.MuiTypography-colorPrimary.MuiTypography-noWrap")
             values = driver.find_elements_by_css_selector(".MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignRight")
             for i in name:
@@ -147,10 +171,10 @@ def swipelistSwap():#doğru çalışıyor
             for i in values:
                 data_values.append(i.text)
         exchange= "swipeswap"
-        driver = webdriver.Firefox()
+        driver = webdriver.Chrome()
         url="https://info.swipe.org/"
         driver.get(url)
-        time.sleep(15)
+
         try:
             looper()
             l=36
@@ -159,24 +183,34 @@ def swipelistSwap():#doğru çalışıyor
             a=41
             p=0
             while(p<10):
-                swipeswap_list.append([exchange,pair[p],data_values[l].replace("$", ""),data_values[v].replace("$", ""),data_values[f].replace("$", ""),(data_values[a].replace("+", "")).replace("%","")])    
+                swipeswap_list.append([exchange,pair[p],(data_values[l].replace("$", "")).replace(",", ""),(data_values[v].replace("$", "")).replace(",", ""),(data_values[f].replace("$", "")).replace(",", ""),(data_values[a].replace("+", "")).replace("%","")])
                 l+=6
                 v+=6
                 f+=6
                 a+=6
                 p+=1
             driver.close()
+            global errorcounter
+            errorcounter=0
             print("swipeswap bitti")
         except:
-            print("swipeswap listesi oluşturulamadı")          
+            print("swipeswap listesi oluşturulamadı")  
+            driver.close()
+            errorcounter+=1
+            if(errorcounter<5):
+                print(errorcounter)
+                swipelistSwap()
+            errorcounter=0      
     except:
         print("swipeswap çalışmadı")
-def sashimilistSwap():#doğru çalışıyor
+def sashimilistSwap():
     try:
         print("sashimiswap başladı")
         pair = list()
         data_values = list()
         def looper():
+            WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-gPEVay.bYsHcw")))
+            time.sleep(1)
             name = driver.find_elements_by_css_selector(".sc-gPEVay.bYsHcw")
             values = driver.find_elements_by_css_selector(".sc-hzDkRC.hvyZgB.css-4cffwv")
             for i in name:
@@ -184,10 +218,9 @@ def sashimilistSwap():#doğru çalışıyor
             for i in values:
                 data_values.append(i.text)
         exchange= "sashimiswap"
-        driver = webdriver.Firefox()
+        driver = webdriver.Chrome()
         url="https://info.sashimi.cool/pairs"
         driver.get(url)
-        time.sleep(15)
         try:
             looper()
             l=0
@@ -196,24 +229,34 @@ def sashimilistSwap():#doğru çalışıyor
             a=4
             p=0
             while(p<=10):
-                sashimiswap_list.append([exchange,pair[p],data_values[l].replace("$", ""),data_values[v].replace("$", ""),data_values[f].replace("$", ""),(data_values[a].replace("+", "")).replace("%","")])    
+                sashimiswap_list.append([exchange,pair[p],data_values[l].replace("$", "") if (data_values[l].replace("$", ""))[-3:-2] =="." else (data_values[l].replace("$", "")).replace(".",""),(data_values[v].replace("$", ""))[:-1] if (data_values[v].replace("$", ""))[-3:-2] =="." else (data_values[v].replace("$", "")).replace(".",""),(data_values[f].replace("$", ""))[:-1] if (data_values[f].replace("$", ""))[-3:-2] =="." else (data_values[f].replace("$", "")).replace(".",""),(data_values[a].replace("+", "")).replace("%","")])    
                 l+=5
                 v+=5
                 f+=5
                 a+=5
                 p+=1
             driver.close()
+            global errorcounter
+            errorcounter=0
             print("sashimiswap bitti")
         except:
             print("sashimiswap listesi oluşturulamadı")
+            driver.close()
+            errorcounter+=1
+            if(errorcounter<5):
+                print(errorcounter)
+                sashimilistSwap()
+            errorcounter=0
     except:
         print("sashimiswap çalışmadı")
-def wanlistSwap():#doğru çalışıyor
+def wanlistSwap():
     try:
         print("wanswap başladı")
         pair = list()
         data_values = list()
         def looper():
+            WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-jlyJG.hZRHdD")))
+            time.sleep(1)
             name = driver.find_elements_by_css_selector(".sc-jlyJG.hZRHdD")
             values = driver.find_elements_by_css_selector(".sc-fBuWsC.KrSIM.css-4cffwv div div:nth-child(1)")
             for i in name:
@@ -221,10 +264,9 @@ def wanlistSwap():#doğru çalışıyor
             for i in values:
                 data_values.append(i.text)
         exchange= "wanswap"
-        driver = webdriver.Firefox()
+        driver = webdriver.Chrome()
         url="https://info.wanswap.finance/pairs"
         driver.get(url)
-        time.sleep(15)
         try:
             looper()
             l=0
@@ -232,20 +274,36 @@ def wanlistSwap():#doğru çalışıyor
             f=3
             a=4
             p=0
-            while (l<=180):
-                    wanswap_list.append([exchange,pair[p],data_values[l].replace("$", ""),data_values[v].replace("$", ""),data_values[f].replace("$", ""),(data_values[a].replace("+", "")).replace("%","")])    
+            while (a<=120):
+                if((data_values[a].replace("+", "")).replace("%","")=="0"):
+                    wanswap_list.append([exchange,pair[p],((data_values[l].replace("$", "")).replace(".", "")).replace(",", "."),((data_values[v].replace("$", "")).replace(".", "")).replace(",", "."),((data_values[f].replace("$", "")).replace(".", "")).replace(",", "."),(data_values[a].replace("+", "")).replace("%","")])
+                    l+=5
+                    v+=5
+                    f+=5
+                    a+=5
+                    p+=1
+                else:
+                    wanswap_list.append([exchange,pair[p],((data_values[l].replace("$", "")).replace(".", "")).replace(",", "."),((data_values[v].replace("$", "")).replace(".", "")).replace(",", "."),((data_values[f].replace("$", "")).replace(".", "")).replace(",", "."),(data_values[a].replace("+", "")).replace("%","")])
                     l+=6
                     v+=6
                     f+=6
                     a+=6
                     p+=1
             driver.close()
+            global errorcounter
+            errorcounter=0
             print("wanswap bitti")
         except:
-            print("wanswap listesi oluşturulamadı")  
+            print("wanswap listesi oluşturulamadı") 
+            driver.close()
+            errorcounter+=1
+            if(errorcounter<5):
+                print(errorcounter)
+                wanlistSwap() 
+            errorcounter=0 
     except:
         print("wanswap çalışmadı")
-def bancorlistSwap():#doğru çalışıyor
+def bancorlistSwap():
     try:
         print("bancorswap başladı")
         url = 'https://api-v2.bancor.network/pools' 
@@ -257,18 +315,19 @@ def bancorlistSwap():#doğru çalışıyor
             for i in json_data["data"]:
                 if(float((i["liquidity"]["usd"]))!=0):
                     ayp=str((float(i["fees_24h"]["usd"])/float((i["liquidity"]["usd"])))*100*365)
-                    bancor_list.append([exchange,i["name"],i["liquidity"]["usd"],"no volume",i["liquidity"]["usd"],ayp])
+                    bancor_list.append([exchange,i["name"],i["liquidity"]["usd"],"0.0",i["liquidity"]["usd"],ayp])
             print("bancorswap bitti")
         except:
             print("bancorswap listesi oluşturulamadı")         
     except:
         print("bancorswap çalışmadı")
-def quicklistSwap():#doğru çalışıyor
+def quicklistSwap():
     try:
         print("quickswap başladı")
         pair = list()
         data_values = list()
         def looper():
+            WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-gPEVay.gLawMS")))
             name = driver.find_elements_by_css_selector(".sc-gPEVay.gLawMS")
             values = driver.find_elements_by_css_selector(".sc-VigVT.dNgKCa div:nth-child(1)")
             for i in name:
@@ -276,10 +335,9 @@ def quicklistSwap():#doğru çalışıyor
             for i in values:
                 data_values.append(i.text)
         exchange= "quickswap"
-        driver = webdriver.Firefox()
+        driver = webdriver.Chrome()
         url="https://info.quickswap.exchange/pairs"
         driver.get(url)
-        time.sleep(15)
         try:
             looper()
             l=0
@@ -288,24 +346,34 @@ def quicklistSwap():#doğru çalışıyor
             a=4
             p=0
             while (a<=len(data_values)):
-                quickswap_list.append([exchange,pair[p],data_values[l].replace("$", ""),data_values[v].replace("$", ""),data_values[f].replace("$", ""),(data_values[a].replace("+", "")).replace("%","")])    
+                quickswap_list.append([exchange,pair[p],((data_values[l].replace("$", "")).replace(".", "")).replace(",", "."),((data_values[v].replace("$", "")).replace(".", "")).replace(",", "."),((data_values[f].replace("$", "")).replace(".", "")).replace(",", "."),(data_values[a].replace("+", "")).replace("%","")])
                 l+=6
                 v+=6
                 f+=6
                 a+=6
                 p+=1
             driver.close()
+            global errorcounter
+            errorcounter=0
             print("quickswap bitti")
         except:
             print("quickswap listesi oluşturulamadı")
+            driver.close()
+            errorcounter+=1
+            if(errorcounter<5):
+                print(errorcounter)
+                quicklistSwap() 
+            errorcounter=0
     except:
         print("quickswap çalışmadı")
-def pangolinlistSwap():#doğru çalışıyor
+def pangolinlistSwap():
     try:
         print("pangolin başladı")
         pair = list()
         data_values = list()
         def looper():
+            WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-iRbamj.bowFDd")))
+            time.sleep(1)
             name = driver.find_elements_by_css_selector(".sc-iRbamj.bowFDd")
             values = driver.find_elements_by_css_selector(".sc-jhAzac.ewmrIK.css-4cffwv")
             for i in name:
@@ -314,10 +382,9 @@ def pangolinlistSwap():#doğru çalışıyor
                 data_values.append(i.text)
         time.sleep(2)
         exchange= "pangolin"
-        driver = webdriver.Firefox()
+        driver = webdriver.Chrome()
         url="https://info.pangolin.exchange/#/pairs"
         driver.get(url)
-        time.sleep(15)
         try:
             looper()
             l=0
@@ -326,24 +393,34 @@ def pangolinlistSwap():#doğru çalışıyor
             a=4
             p=0
             while(a<=len(data_values)):
-                pangolin_list.append([exchange,pair[p],data_values[l].replace("$", ""),data_values[v].replace("$", ""),data_values[f].replace("$", ""),(data_values[a].replace("+", "")).replace("%","")])    
+                pangolin_list.append([exchange,pair[p],data_values[l].replace("$", "") if (data_values[l].replace("$", ""))[-3:-2] =="." else (data_values[l].replace("$", "")).replace(".",""),(data_values[v].replace("$", ""))[:-1] if (data_values[v].replace("$", ""))[-3:-2] =="." else (data_values[v].replace("$", "")).replace(".",""),(data_values[f].replace("$", ""))[:-1] if (data_values[f].replace("$", ""))[-3:-2] =="." else (data_values[f].replace("$", "")).replace(".",""),(data_values[a].replace("+", "")).replace("%","")])    
                 l+=5
                 v+=5
                 f+=5
                 a+=5
                 p+=1
             driver.close()
+            global errorcounter
+            errorcounter=0
             print("pangolin bitti")
         except:
             print("pangolin listesi oluşturulamadı")
+            driver.close()
+            errorcounter+=1
+            if(errorcounter<5):
+                print(errorcounter)
+                pangolinlistSwap()
+            errorcounter=0
     except:
         print("pangolin çalışmadı")
-def pancakelistSwap():#doğru çalışıyor
+def pancakelistSwap():
     try:
         print("pancakeswap başladı")
         pair = list()
         data_values = list()
         def looper():
+                WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-iRbamj.bowFDd")))
+                time.sleep(1)
                 name = driver.find_elements_by_css_selector(".sc-iRbamj.bowFDd")
                 values = driver.find_elements_by_css_selector(".sc-jhAzac.iggPaB.css-4cffwv")
                 for i in name:
@@ -351,50 +428,59 @@ def pancakelistSwap():#doğru çalışıyor
                 for i in values:
                     data_values.append(i.text)
         exchange= "pancakeswap"
-        driver = webdriver.Firefox()
+        driver = webdriver.Chrome()
         url="https://pancakeswap.info/pairs"
         driver.get(url)
-        time.sleep(15)
         try:  
             looper()
-            driver.find_element_by_css_selector(".sc-gipzik.kLOwjF").click()
-            looper()
+            # driver.find_element_by_css_selector(".sc-gipzik.kLOwjF").click()
+            # looper()
             l=0
             v=1
             f=3
             a=4
             p=0
             while (a<=len(data_values)):
-                        pancake_list.append([exchange,pair[p],data_values[l].replace("$", ""),data_values[v].replace("$", ""),data_values[f].replace("$", ""),(data_values[a].replace("+", "")).replace("%","")])
+                        pancake_list.append([exchange,pair[p],(data_values[l].replace("$", "")).replace(",", ""),(data_values[v].replace("$", "")).replace(",", ""),(data_values[f].replace("$", "")).replace(",", ""),(data_values[a].replace("+", "")).replace("%","")])
                         l+=5
                         v+=5
                         f+=5
                         a+=5
                         p+=1
             driver.close()
+            global errorcounter
+            errorcounter=0
             print("pancakeswap bitti")
         except:
             print("pancakeswap listesi oluşturulamadı")
+            driver.close()
+            errorcounter+=1
+            if(errorcounter<5):
+                print(errorcounter)
+                pancakelistSwap() 
+            errorcounter=0
     except:
         print("pancakeswap çalışmadı")
-def mdexlistSwap():#doğru çalışıyor
+def mdexlistSwap():
     try:
         print("mdexswap başladı")
         pair = list()
         data_values = list()
         exchange= "mdex"
-        driver = webdriver.Firefox()
+        driver = webdriver.Chrome()
         url="https://bsc-info.mdex.com/#/pairs"
         driver.get(url)
         def looper():
-                name = driver.find_elements_by_css_selector(".sc-gPEVay.gLawMS")
-                values = driver.find_elements_by_css_selector(".sc-VigVT.dNgKCa div")
-                for i in name:
-                    pair.append(i.text)
-                for i in values:
-                    data_values.append(i.text)
-        time.sleep(15)
-        try:
+                    WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-gPEVay.gLawMS")))
+                    time.sleep(1)
+                    name = driver.find_elements_by_css_selector(".sc-gPEVay.gLawMS")
+                    values = driver.find_elements_by_css_selector(".sc-VigVT.dNgKCa div")
+                    for i in name:
+                        pair.append(i.text)
+                    for i in values:
+                        data_values.append(i.text)
+        
+        try:    
             looper()
             driver.find_element_by_css_selector(".sc-jlyJG.fBsklp").click()
             looper()
@@ -404,36 +490,44 @@ def mdexlistSwap():#doğru çalışıyor
             a=8
             p=0
             while (a<=len(data_values)):
-                mdex_list.append([exchange,pair[p],data_values[l].replace("$", ""),data_values[v].replace("$", ""),data_values[f].replace("$", ""),(data_values[a].replace("+", "")).replace("%","")])    
-                l+=11
-                v+=11
-                f+=11
-                a+=11
-                p+=1
-            driver.close() 
-            print("mdexswap bitti")
+                        mdex_list.append([exchange,pair[p],(data_values[l].replace("$", "")).replace(",", ""),float(((data_values[v].replace("$", "")).replace(",", "")).replace("m",""))*1000000 if ((data_values[v].replace("$", "")).replace(",", ""))[-1:]=="m" else float(((data_values[v].replace("$", "")).replace(",", "")).replace("b",""))*1000 if ((data_values[v].replace("$", "")).replace(",", ""))[-1:]=="b" else (data_values[v].replace("$", "")).replace(",", ""),float(((data_values[f].replace("$", "")).replace(",", "")).replace("m",""))*1000000 if ((data_values[f].replace("$", "")).replace(",", ""))[-1:]=="m" else float(((data_values[f].replace("$", "")).replace(",", "")).replace("b",""))*1000 if ((data_values[f].replace("$", "")).replace(",", ""))[-1:]=="b" else (data_values[f].replace("$", "")).replace(",", ""),(data_values[a].replace("+", "")).replace("%","")])
+                        l+=11
+                        v+=11
+                        f+=11
+                        a+=11
+                        p+=1
+            driver.close()
+            global errorcounter
+            errorcounter=0
+            print("mdex bitti")
         except:
-            print("mdexswap listesi oluşturulamadı")
+            print("mdex listesi oluşturulamadı")
+            driver.close()
+            errorcounter+=1
+            if(errorcounter<5):
+                print(errorcounter)
+                mdexlistSwap()
+            errorcounter=0
     except:
-        print("mdexswap çalışmadı")  
-def julistSwap():#doğru çalışıyor
+        print("mdex çalışmadı")          
+def julistSwap():
     try:
         print("julswap başladı")
         pair = list()
         data_values = list()
         def looper():
+            WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-kcbnda.dcPXpm.css-1n3zwju a div")))
+            time.sleep(1)
             name = driver.find_elements_by_css_selector(".sc-kcbnda.dcPXpm.css-1n3zwju a div")
             values = driver.find_elements_by_css_selector(".sc-kcbnda.dcPXpm.css-4cffwv")
             for i in name:
                 pair.append(i.text)
             for i in values:
                 data_values.append(i.text)
-            time.sleep(2)
         exchange= "julswap"
-        driver = webdriver.Firefox()
+        driver = webdriver.Chrome()
         url="https://info.julswap.com/home"
         driver.get(url)
-        time.sleep(15)
         try:
             looper()
             driver.find_element_by_css_selector(".sc-imABML.fKZlSM").click()
@@ -449,36 +543,44 @@ def julistSwap():#doğru çalışıyor
             a=4
             p=0
             while (a<=len(data_values)):
-                julswap_list.append([exchange,pair[p],data_values[l].replace("$", ""),data_values[v].replace("$", ""),data_values[f].replace("$", ""),(data_values[a].replace("+", "")).replace("%","")])    
+                julswap_list.append([exchange,pair[p],data_values[l].replace("$", "") if (data_values[l].replace("$", ""))[-3:-2] =="." else (data_values[l].replace("$", "")).replace(".",""),(data_values[v].replace("$", ""))[:-1] if (data_values[v].replace("$", ""))[-3:-2] =="." else (data_values[v].replace("$", "")).replace(".",""),(data_values[f].replace("$", ""))[:-1] if (data_values[f].replace("$", ""))[-3:-2] =="." else (data_values[f].replace("$", "")).replace(".",""),(data_values[a].replace("+", "")).replace("%","")])    
                 l+=5
                 v+=5
                 f+=5
                 a+=5
                 p+=1
             driver.close()
+            global errorcounter
+            errorcounter=0
             print("julyswap bitti")
         except:
             print("julswap listesi oluşturulamadı")
+            driver.close()
+            errorcounter+=1
+            if(errorcounter<5):
+                print(errorcounter)
+                julistSwap()
+            errorcounter=0
     except:
         print("julswap çalışmadı")
-def bakerylistSwap():#doğru çalışıyor
+def bakerylistSwap():
     try:
         print("bakeryswap başladı")
         pair = list()
         data_values = list()
         def looper():
+            WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-Rmtcm.gfMZds div a div")))
+            time.sleep(1)
             name = driver.find_elements_by_css_selector(".sc-Rmtcm.gfMZds div a div")
             values = driver.find_elements_by_css_selector(".sc-jhAzac.ewmrIK.css-4cffwv")
             for i in name:
                 pair.append(i.text)
             for i in values:
                 data_values.append(i.text)
-            time.sleep(2)
         exchange= "bakeryswap"
-        driver = webdriver.Firefox()
+        driver = webdriver.Chrome()
         url="https://info.bakeryswap.org/#/home"
         driver.get(url)
-        time.sleep(15)
         try:
             looper()
             j=0
@@ -492,36 +594,44 @@ def bakerylistSwap():#doğru çalışıyor
             a=4
             p=0
             while (a<=len(data_values)):
-                bakery_list.append([exchange,pair[p],data_values[l].replace("$", ""),data_values[v].replace("$", ""),data_values[f].replace("$", ""),(data_values[a].replace("+", "")).replace("%","")])    
+                bakery_list.append([exchange,pair[p],data_values[l].replace("$", "") if (data_values[l].replace("$", ""))[-3:-2] =="." else (data_values[l].replace("$", "")).replace(".",""),(data_values[v].replace("$", ""))[:-1] if (data_values[v].replace("$", ""))[-3:-2] =="." else (data_values[v].replace("$", "")).replace(".",""),(data_values[f].replace("$", ""))[:-1] if (data_values[f].replace("$", ""))[-3:-2] =="." else (data_values[f].replace("$", "")).replace(".",""),(data_values[a].replace("+", "")).replace("%","")])    
                 l+=5
                 v+=5
                 f+=5
                 a+=5
                 p+=1
             driver.close()
+            global errorcounter
+            errorcounter=0
             print("bakeryswap bitti")
         except:
             print("bakeryswap listesi oluşturulamadı")
+            driver.close()
+            errorcounter+=1
+            if(errorcounter<5):
+                print(errorcounter)
+                bakerylistSwap()
+            errorcounter=0
     except:
         print("bakeryswap çalışmadı")
-def linklistSwap():#doğru çalışıyor
+def linklistSwap():
     try:
         print("linkswap başladı")
         pair = list()
         data_values = list()
         def looper():
+            WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-iRbamj.bowFDd")))
+            time.sleep(1)
             name = driver.find_elements_by_css_selector(".sc-iRbamj.bowFDd")
             values = driver.find_elements_by_css_selector(".sc-jhAzac.cVBsLB.css-4cffwv")
             for i in name:
                 pair.append(i.text)
             for i in values:
                 data_values.append(i.text)
-            time.sleep(2)
         exchange= "linkswap"
-        driver = webdriver.Firefox()
+        driver = webdriver.Chrome()
         url="https://info.linkswap.app/pairs"
         driver.get(url)
-        time.sleep(15)
         try:
             looper()
             driver.find_element_by_css_selector(".sc-gipzik.fPxmcZ").click()
@@ -532,16 +642,24 @@ def linklistSwap():#doğru çalışıyor
             a=4
             p=0
             while (a<=len(data_values)):
-                linkswap_list.append([exchange,pair[p],data_values[l].replace("$", ""),data_values[v].replace("$", ""),data_values[f].replace("$", ""),(data_values[a].replace("+", "")).replace("%","")])    
+                linkswap_list.append([exchange,pair[p],((data_values[l].replace("$", "")).replace(".", "")).replace(",", "."),((data_values[v].replace("$", "")).replace(".", "")).replace(",", "."),((data_values[f].replace("$", "")).replace(".", "")).replace(",", "."),(data_values[a].replace("+", "")).replace("%","")])
                 l+=5
                 v+=5
                 f+=5
                 a+=5
                 p+=1
             driver.close()
+            global errorcounter
+            errorcounter=0
             print("linkswap bitti")
         except:
             print("linkswap listesi oluşturulamadı")
+            driver.close()
+            errorcounter+=1
+            if(errorcounter<5):
+                print(errorcounter)
+                linklistSwap()
+            errorcounter=0
     except:
         print("linkswap çalışmadı")
 def uniswaplistSwap():#bazı datalar yanlış
@@ -636,12 +754,14 @@ def serumlistSwap():#apyler 0 olduğu için kaldırdım
             print("serumswap listesi oluşturulamadı")
     except:
         print("serumswap çalışmadı")
-def apeswaplistSwap():#doğru çalışıyor
+def apeswaplistSwap():
     try:
         print("apeswap başladı")
         pair = list()
         data_values = list()
         def looper():
+                WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-iRbamj.bowFDd")))
+                time.sleep(1)
                 name = driver.find_elements_by_css_selector(".sc-iRbamj.bowFDd")
                 values = driver.find_elements_by_css_selector(".sc-jhAzac.iggPaB.css-4cffwv")
                 for i in name:
@@ -649,10 +769,9 @@ def apeswaplistSwap():#doğru çalışıyor
                 for i in values:
                     data_values.append(i.text)
         exchange= "apeswap"
-        driver = webdriver.Firefox()
+        driver = webdriver.Chrome()
         url="https://info.apeswap.finance/pairs"
         driver.get(url)
-        time.sleep(15) 
         try:  
             looper()
             driver.find_element_by_css_selector(".sc-gipzik.Lgock").click()
@@ -663,16 +782,24 @@ def apeswaplistSwap():#doğru çalışıyor
             a=4
             p=0
             while (a<=len(data_values)):
-                        apeswap_list.append([exchange,pair[p],data_values[l].replace("$", ""),data_values[v].replace("$", ""),data_values[f].replace("$", ""),(data_values[a].replace("+", "")).replace("%","")])
+                        apeswap_list.append([exchange,pair[p],(data_values[l].replace("$", "")).replace(",", ""),(data_values[v].replace("$", "")).replace(",", ""),(data_values[f].replace("$", "")).replace(",", ""),(data_values[a].replace("+", "")).replace("%","")])
                         l+=5
                         v+=5
                         f+=5
                         a+=5
                         p+=1
             driver.close()
+            global errorcounter
+            errorcounter=0
             print("apeswap bitti")
         except:
             print("apeswap listesi oluşturulamadı")
+            driver.close()
+            errorcounter+=1
+            if(errorcounter<5):
+                print(errorcounter)
+                apeswaplistSwap()
+            errorcounter=0
     except:
         print("apeswap çalışmadı")
 DeFi()   
