@@ -6,6 +6,7 @@ from tabulate import tabulate
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+#driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
 
 defiswap_list=list()
 
@@ -26,6 +27,7 @@ pangolin_list= list()
 mov_list= list()
 apeswap_list=list()
 burger_list=list()
+panther_list=list()
 
 errorcounter=0
 def DeFi():
@@ -38,8 +40,9 @@ def DeFi():
     bakerylistSwap()
     mdexlistSwap()
     burgerswaplistSwap()
-    sushiswaplistSwap()#ok                           
-    uniswaplistSwap()#ok
+    pantherlistSwap()
+    # sushiswaplistSwap()#ok                           
+    # uniswaplistSwap()#ok
     #serumlistSwap()#ok
     pancakelistSwap()
     sashimilistSwap()
@@ -49,8 +52,8 @@ def DeFi():
     movlistSwap()
     apeswaplistSwap()
     j=0
-    while j<16:
-                    datas = [swipeswap_list,burger_list,pangolin_list,wanswap_list,apeswap_list,mov_list,uniswap_list,sushiswap_list,sashimiswap_list,mdex_list,julswap_list,bakery_list,pancake_list,linkswap_list,quickswap_list,bancor_list]
+    while j<17:
+                    datas = [swipeswap_list,panther_list,burger_list,pangolin_list,wanswap_list,apeswap_list,mov_list,uniswap_list,sushiswap_list,sashimiswap_list,mdex_list,julswap_list,bakery_list,pancake_list,linkswap_list,quickswap_list,bancor_list]
                     for i in datas[j]:
                         if(float(i[5])!=0):
                             defiswap_list.append([i[0],i[1],round(float(i[2]),1),round(float(i[3]),1),round(float(i[4]),1),round(float(i[5]),1)])
@@ -59,7 +62,53 @@ def DeFi():
     #print(tabulate(data))
     print(data)
     print("PROJE BİTTİ")
-    
+def pantherlistSwap():
+    try:
+        print("panther başladı")
+        pair = list()
+        data_values = list()
+        def looper():
+            WebDriverWait(driver, 60).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".sc-iRbamj.bowFDd")))
+            time.sleep(2)
+            name = driver.find_elements_by_css_selector(".sc-iRbamj.bowFDd")
+            values = driver.find_elements_by_css_selector(".sc-jhAzac.iggPaB.css-4cffwv")
+            for i in name:
+                pair.append(i.text)
+            for i in values:
+                data_values.append(i.text)
+        exchange= "panther"
+        url="https://pantherswap.info/pairs"
+        driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
+        driver.get(url)
+        driver.maximize_window()
+        try:
+            looper()
+            l=0
+            v=1
+            f=3
+            a=4
+            p=0
+            while(a<=len(data_values)):
+                    panther_list.append([exchange,pair[p],((data_values[l].replace("$", "")).replace(",", "")).replace('< 0.0001',"0") if (data_values[l].replace("$", "")).replace(",", "") == '< 0.0001' else (data_values[l].replace("$", "")).replace(",", ""),((data_values[v].replace("$", "")).replace(",", "")).replace('< 0.0001',"0") if (data_values[v].replace("$", "")).replace(",", "") == '< 0.0001' else (data_values[v].replace("$", "")).replace(",", ""),((data_values[f].replace("$", "")).replace(",", "")).replace('< 0.0001',"0") if (data_values[f].replace("$", "")).replace(",", "") == '< 0.0001' else (data_values[f].replace("$", "")).replace(",", ""),(data_values[a].replace("+", "")).replace("%","")])
+                    l+=5
+                    v+=5
+                    f+=5
+                    a+=5
+                    p+=1
+            driver.close()
+            global errorcounter
+            errorcounter=0
+            print("panther bitti")
+        except:
+            print("panther listesi oluşturulamadı")
+            driver.close()
+            errorcounter+=1
+            if(errorcounter<5):
+                pantherlistSwap()
+            errorcounter=0
+    except:
+        print("panther çalışmadı")    
 def burgerswaplistSwap():
     try:
         print("burgerswap başladı")
@@ -275,15 +324,7 @@ def wanlistSwap():
             f=3
             a=4
             p=0
-            while (a<=120):
-                if((data_values[a].replace("+", "")).replace("%","")=="0"):
-                    wanswap_list.append([exchange,pair[p],((data_values[l].replace("$", "")).replace(".", "")).replace(",", "."),((data_values[v].replace("$", "")).replace(".", "")).replace(",", "."),((data_values[f].replace("$", "")).replace(".", "")).replace(",", "."),(data_values[a].replace("+", "")).replace("%","")])
-                    l+=5
-                    v+=5
-                    f+=5
-                    a+=5
-                    p+=1
-                else:
+            while (a<=len(data_values)):
                     wanswap_list.append([exchange,pair[p],((data_values[l].replace("$", "")).replace(".", "")).replace(",", "."),((data_values[v].replace("$", "")).replace(".", "")).replace(",", "."),((data_values[f].replace("$", "")).replace(".", "")).replace(",", "."),(data_values[a].replace("+", "")).replace("%","")])
                     l+=6
                     v+=6
@@ -380,6 +421,7 @@ def pangolinlistSwap():
                 pair.append(i.text)
             for i in values:
                 data_values.append(i.text)
+        time.sleep(2)
         exchange= "pangolin"
         driver = webdriver.Chrome('/home/tufan/Desktop/DefiProject/DefiProject/chromedriver')
         url="https://info.pangolin.exchange/#/pairs"
@@ -530,25 +572,25 @@ def julistSwap():
         driver.maximize_window()
         try:
             looper()
-            driver.find_element_by_css_selector(".sc-imABML.fKZlSM").click()
+            driver.find_element_by_css_selector(".sc-imABML.edHSGl").click()
             looper()
-            j=0
-            while j<=5:
-                driver.find_element_by_css_selector(".sc-hUfwpO.fvrRCk div:nth-child(3) div").click()
-                looper()
-                j+=1
+            k=0
+            while k<=5:
+                    driver.find_element_by_css_selector(".sc-hUfwpO.fvrRCk div:nth-child(3) div").click()
+                    looper()
+                    k+=1
             l=0
             v=1
             f=3
             a=4
             p=0
             while (a<=len(data_values)):
-                julswap_list.append([exchange,pair[p],data_values[l].replace("$", "") if (data_values[l].replace("$", ""))[-3:-2] =="." else (data_values[l].replace("$", "")).replace(".",""),(data_values[v].replace("$", ""))[:-1] if (data_values[v].replace("$", ""))[-3:-2] =="." else (data_values[v].replace("$", "")).replace(".",""),(data_values[f].replace("$", ""))[:-1] if (data_values[f].replace("$", ""))[-3:-2] =="." else (data_values[f].replace("$", "")).replace(".",""),(data_values[a].replace("+", "")).replace("%","")])    
-                l+=5
-                v+=5
-                f+=5
-                a+=5
-                p+=1
+                    julswap_list.append([exchange,pair[p],data_values[l].replace("$", "") if (data_values[l].replace("$", ""))[-3:-2] =="." else (data_values[l].replace("$", "")).replace(".",""),(data_values[v].replace("$", ""))[:-1] if (data_values[v].replace("$", ""))[-3:-2] =="." else (data_values[v].replace("$", "")).replace(".",""),(data_values[f].replace("$", ""))[:-1] if (data_values[f].replace("$", ""))[-3:-2] =="." else (data_values[f].replace("$", "")).replace(".",""),(data_values[a].replace("+", "")).replace("%","")])    
+                    l+=5
+                    v+=5
+                    f+=5
+                    a+=5
+                    p+=1
             driver.close()
             global errorcounter
             errorcounter=0
